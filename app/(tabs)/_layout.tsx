@@ -2,17 +2,17 @@ import { Tabs } from 'expo-router';
 import React from 'react';
 
 import { HapticTab } from '@/components/haptic-tab';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Colors } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import { useAuth } from '@/contexts/AuthContext';
+import { Image } from 'react-native';
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
+  const loggedIn = useAuth().isLoggedIn;
 
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        tabBarActiveTintColor: '#1877F2',
+        tabBarInactiveTintColor: '#00000050',
         headerShown: false,
         tabBarButton: HapticTab,
       }}>
@@ -20,16 +20,94 @@ export default function TabLayout() {
         name="index"
         options={{
           title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <Image
+              source={require('../../assets/images/Home.png')}
+              style={{
+                width: 28,
+                height: 28,
+                tintColor: color,
+              }}
+              resizeMode="contain"
+            />
+          ),
         }}
       />
+
       <Tabs.Screen
-        name="explore"
+        name="wishlist"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          title: 'WISHLIST',
+          tabBarIcon: ({ color }) => (
+            <Image
+              source={require('../../assets/images/Heart.png')}
+              style={{
+                width: 28,
+                height: 28,
+                tintColor: color,
+              }}
+              resizeMode="contain"
+            />
+          ),
         }}
       />
+
+      <Tabs.Screen
+        name="orders"
+        options={{
+          title: 'ORDERS',
+          tabBarIcon: ({ color }) => (
+            <Image
+              source={require('../../assets/images/Bag.png')}
+              style={{
+                width: 28,
+                height: 28,
+                tintColor: color,
+              }}
+              resizeMode="contain"
+            />
+          ),
+        }}
+      />
+
+      
+      <Tabs.Screen
+        name="account"
+        options={{
+          title: 'ACCOUNT',
+          href: loggedIn ? '/(tabs)/account' : null,
+          tabBarIcon: ({ color }) => (
+            <Image
+              source={require('../../assets/images/ProfilePic.png')}
+              style={{
+                width: 35,
+                height: 35,
+              }}
+              resizeMode="contain"
+            />
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+          name="login"
+          options={{
+            title: 'login',
+            href: loggedIn ? null : '/(tabs)/login',
+            tabBarIcon: ({ color }) => (
+              <Image
+                source={require('../../assets/images/Profile.png')}
+                style={{
+                  width: 28,
+                  height: 28,
+                  tintColor: color,
+                }}
+                resizeMode="contain"
+              />
+            ),
+          }}
+        />
+      
     </Tabs>
   );
 }
