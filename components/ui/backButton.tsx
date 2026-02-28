@@ -31,7 +31,7 @@ export default function BackButton () {
     return (
         <View style={{width: '90%', marginTop: 20}}>
             <TouchableOpacity onPress={btn}>
-            <    IconSymbol lib="Ionicons" name="chevron-back" size={35} />
+            <    IconSymbol lib="Ionicons" name="arrow-back" size={35} />
             </TouchableOpacity>
         </View>
         

@@ -78,7 +78,7 @@ export default function TabLayout() {
           href: loggedIn ? '/(tabs)/account' : null,
           tabBarIcon: ({ color }) => (
             <Image
-              source={require('../../assets/images/ProfilePic.png')}
+              source={require('../../assets/images/default_picture.png')}
               style={{
                 width: 35,
                 height: 35,

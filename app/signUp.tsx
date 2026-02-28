@@ -85,11 +85,11 @@ export default function SignUp () {
         scrollEventThrottle={16}
         showsVerticalScrollIndicator={false}
         >
-            <View style={{width: '90%', display: 'flex', alignItems: 'center', gap: 30}}>
-                <Text style={{fontWeight: '600', fontSize: 24, fontFamily: 'Montserrat_700Bold'}}>Create an Account with us</Text>
-                <Text style={{fontSize: 18, lineHeight: 30, fontFamily: 'Montserrat_400Regular', textAlign: 'center'}}>Create an account for free and experience the wonders of shopping with us</Text>
+            <View style={{width: '90%', display: 'flex', alignItems: 'center', gap: 20}}>
+                <Text style={{fontWeight: '800', fontSize: 24, fontFamily: 'Montserrat_500Medium'}}>Create an Account with us</Text>
+                <Text style={{fontSize: 18, lineHeight: 30, fontFamily: 'Montserrat_500Medium', textAlign: 'center'}}>Create an account for free and experience the wonders of shopping with us</Text>
                 
-                <View style={{flexDirection: 'row', flexWrap: 'wrap', gap: 50, width: '100%',}}>
+                <View style={{flexDirection: 'row', flexWrap: 'wrap', gap: 20, width: '100%',}}>
                     <View style={styles.inputdiv}>
                         <Text style={styles.texts}>First Name</Text>
                         <TextInput value={firstName} onChangeText={setFirst} placeholder="Enter your Email/phone number" placeholderTextColor={'#C4C5C4'} style={styles.input} />
@@ -112,8 +112,14 @@ export default function SignUp () {
 
                     <View style={styles.inputdiv}>
                       <Text style={styles.texts}>Password</Text>
-                      <View style={{width: '80%', borderWidth: 0, outline: 'none', paddingLeft: 10, backgroundColor: '#F2F5FA', borderRadius: 20, height: 50, flexDirection: 'row', alignItems: 'center'}}>
-                            <TextInput secureTextEntry={show} value={password} onChangeText={setPassword} placeholder="Enter your Password" placeholderTextColor={'#C4C5C4'} style={styles.input} />
+                      <View style={{width: '100%', borderWidth: 0, outline: 'none', paddingLeft: 16, backgroundColor: '#F2F5FA', borderRadius: 20, height: 50, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingRight: 16,}}>
+                            <TextInput secureTextEntry={show} value={password} onChangeText={setPassword} placeholder="Enter your Password" placeholderTextColor={'#C4C5C4'} style={{        width: '80%',
+        borderWidth: 0,
+        outline: 'none',
+        paddingLeft: 16,
+        backgroundColor: '#F2F5FA',
+        borderRadius: 20,
+        height: 50,}} />
                             <TouchableOpacity onPress={()=>setShow(!show)}><IconSymbol lib="FontAwesome" name={show ? "eye-slash" : "eye"} size={20} /></TouchableOpacity>
                       </View>
                     </View>
@@ -124,22 +130,18 @@ export default function SignUp () {
                     </View>
 
                     <RadioButton.Group onValueChange={setRole} value={role}>
-                    <RadioButton.Item label="Buyer" value="buyer" />
-                    <RadioButton.Item label="Seller" value="seller" />
+                    <View style={{flexDirection: 'row', width: '100%'}}>
+                      <RadioButton.Item label="Buyer" value="buyer" color="#3669C9"/>
+                      <RadioButton.Item label="Seller" value="seller" color="#3669C9"/> 
+                    </View>
+                    
                     </RadioButton.Group>
                 </View>
 
                <TouchableOpacity style={{ backgroundColor:'#3669C9' ,
     width: 290, 
     paddingVertical: 15, 
-    borderRadius: 15, 
-
-    // Shadow (your favorite 😉)
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.15,
-    shadowRadius: 5,
-    elevation: 5,}} onPress={handleUpload}>
+    borderRadius: 15,}} onPress={handleUpload}>
                 <Text style={{
     color: "#fff",
     fontWeight: "600",
@@ -155,15 +157,15 @@ export default function SignUp () {
 
 const styles = StyleSheet.create ({
     inputdiv: {
-        gap: 10,
+        gap: 8,
         width: '100%',
     },
 
     input: {
-        width: '80%',
+        width: '100%',
         borderWidth: 0,
         outline: 'none',
-        paddingLeft: 10,
+        paddingLeft: 16,
         backgroundColor: '#F2F5FA',
         borderRadius: 20,
         height: 50,
@@ -178,7 +180,7 @@ const styles = StyleSheet.create ({
 
   texts: {
     fontSize: 18,
-    fontFamily: 'Montserrat_400Regular',
+    fontFamily: 'monsorat_400medium',
     
   }
 })

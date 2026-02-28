@@ -1,11 +1,11 @@
 import React from "react";
 import {
-    ActivityIndicator,
-    StyleSheet,
-    Text,
-    TextStyle,
-    TouchableOpacity,
-    ViewStyle,
+  ActivityIndicator,
+  StyleSheet,
+  Text,
+  TextStyle,
+  TouchableOpacity,
+  ViewStyle,
 } from "react-native";
 
 type Props = {
@@ -54,17 +54,10 @@ export default function ButtonUI({
 const styles = StyleSheet.create({
   button: {
     backgroundColor:'#3669C9' ,
-    width: 290, 
+    width: '100%', 
     paddingVertical: 15, 
     borderRadius: 15, 
-    textAlign: 'center',
-
-    // Shadow (your favorite 😉)
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.15,
-    shadowRadius: 5,
-    elevation: 5,
+    textAlign: 'center'
   },
 
   disabled: {
@@ -72,7 +65,7 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    color: "#fff",
+    color: "white",
     fontWeight: "600",
     fontSize: 16,
     textAlign: 'center'

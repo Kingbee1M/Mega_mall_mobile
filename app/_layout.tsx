@@ -2,7 +2,7 @@ import LoadingOverlay from '@/components/loadingOverlay';
 import LoginPortal from '@/components/loginPopUp';
 import { AuthProvider } from '@/contexts/AuthContext';
 import { useColorScheme } from '@/hooks/use-color-scheme';
-import { Montserrat_400Regular, Montserrat_400Regular_Italic, Montserrat_700Bold, Montserrat_800ExtraBold_Italic, useFonts } from "@expo-google-fonts/montserrat";
+import { Montserrat_400Regular, Montserrat_400Regular_Italic, Montserrat_500Medium, Montserrat_700Bold, Montserrat_800ExtraBold_Italic, useFonts } from "@expo-google-fonts/montserrat";
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
@@ -19,6 +19,7 @@ export default function RootLayout() {
     Montserrat_400Regular_Italic,
     Montserrat_700Bold,
     Montserrat_800ExtraBold_Italic,
+    Montserrat_500Medium
   });
 
     if (!fontsLoaded) {

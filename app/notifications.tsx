@@ -1,14 +1,29 @@
 import { IconSymbol } from "@/components/ui/icon-symbol";
 import { Colors } from "@/constants/theme";
-import { useNotificationStore } from "@/store/useNotificationStore";
+import { useAuth } from "@/contexts/AuthContext";
+import { getNotificationByUser, Notification } from "@/services/notificationServices";
 import { useRouter } from "expo-router";
+import { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 
 export default function Notifications() {
-    const notifications = useNotificationStore((state) => state.notifications);
-    const router = useRouter()
+  const [fetchedNotifications, setFetchedNotifications] = useState<Notification[]>([]);
+  const { profile } = useAuth();
+
+
+  useEffect (()=> {
+        if (!profile) return;
+  
+         const fetchNotifications = async () => {
+        const data = await getNotificationByUser(profile.user_id);
+        setFetchedNotifications(data);
+      };
+  
+        fetchNotifications();
+      }, [profile])
+  const router=useRouter()
     return (
         <SafeAreaView style={{flex: 1, backgroundColor: Colors.light.background}}>
             <ScrollView 
@@ -22,17 +37,20 @@ export default function Notifications() {
                 </View>
                 
                 <View style={{display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 20}}>
-                    {notifications.length === 0 ? (
+                    {fetchedNotifications.length === 0 ? (
                         <Text style={{fontSize: 16, color: Colors.light.text}}>No notifications available.</Text>
                     ) : (
-                        notifications.map((noti) => (
-                            <View key={noti.id} style={{width: '100%',display: 'flex', flexDirection: 'row', alignItems: 'flex-start', gap: 10, backgroundColor: noti.read ? Colors.light.background : '#e0e0e0', padding: 15, borderRadius: 10, shadowColor: '#000', shadowOffset: {width: 0, height: 2}, shadowOpacity: 0.1, shadowRadius: 5, elevation: 3,}}>
-                                <IconSymbol lib="Ionicons" name="mail-unread" size={50} color={Colors.light.tint} />
-                                <View style={{ gap: 10, marginBottom: 5}}>
+                        fetchedNotifications.map((noti) => (
+                            <TouchableOpacity key={noti.id} style={{width: '100%',display: 'flex', flexDirection: 'row', alignItems: 'flex-start', gap: 10, backgroundColor: noti.read ? Colors.light.background : '#e0e0e0', padding: 15, borderRadius: 10, shadowColor: '#000', shadowOffset: {width: 0, height: 2}, shadowOpacity: 0.1, shadowRadius: 5, elevation: 3,}}>
+                                 {noti.read? (<IconSymbol lib="Ionicons" name="mail-open" size={50} color={Colors.light.tint} />) : (<IconSymbol lib="Ionicons" name="mail-unread"  size={50} color={Colors.light.tint} />)}
+                                <View style={{ gap: 10, marginBottom: 5, width: '100%'}}>
                                     <Text style={{fontSize: 16, fontWeight: 600}}>{noti.title}</Text>
-                                    <Text style={styles.notiText}>{noti.message}</Text>
+                                    <Text 
+                                    numberOfLines={1} 
+                                    ellipsizeMode="tail" 
+                                    style={styles.notiText}>{noti.message}</Text>
                                 </View>
-                            </View>
+                            </TouchableOpacity>
                         ))
                     )}
                 </View>
@@ -44,5 +62,6 @@ export default function Notifications() {
 const styles = StyleSheet.create({
     notiText: {
         fontSize: 12,
+        width: '70%'
     }
 })

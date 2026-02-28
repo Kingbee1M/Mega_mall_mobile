@@ -8,6 +8,6 @@ export async function addToCart(userId: string, itemId: string) {
 export async function getCart(userId: string) {
   return await supabase
     .from("cart")
-    .select("*, mega-mall-items(*)")
+    .select("*, mega_mall_items(*)")
     .eq("user_id", userId);
 }
