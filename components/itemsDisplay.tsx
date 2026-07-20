@@ -38,7 +38,6 @@ export default function ItemsDisplay ({ title, items, seeAll, setSeeAll, special
   ? items.filter(filter)
   : items;
     
-  console.log(displayedItems)
 
     const discountPrice = ({discount, price}: {discount: number, price: number}) => {
         return price - ((price*discount)/100)
@@ -79,7 +78,7 @@ export default function ItemsDisplay ({ title, items, seeAll, setSeeAll, special
                     <TouchableOpacity onPress={handleItemPress}>
                         <View style={styles.card}>
                             <View style={{width: '100%', position: 'relative', backgroundColor: 'white'}}>
-                                <Image source={{ uri: String(item.media[0]) }} style={{width: '100%', height: 250}} />
+                                <Image source={{ uri: String(item.media[0]) }} style={{width: '100%', height: 250, borderRadius: 10}} />
                                 {specialSales? <Text style={{backgroundColor: 'red', color: 'white', textAlign: 'center', padding: 8, borderRadius: 10, position: 'absolute', bottom: 0, left: 0}}>SALE</Text> : null}
                             </View>
                             <Text style={{fontFamily: 'Montserrat_500Medium'}}>{item.title}</Text>

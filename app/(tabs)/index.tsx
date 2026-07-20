@@ -59,7 +59,7 @@ export default function HomeScreen() {
 
     const [seeNewArrival, setSeeNewArrival] = useState(true)
 
-    const {profile} = useAuth()
+    const {profile, isHydrating} = useAuth()
 
 
 
@@ -69,8 +69,10 @@ export default function HomeScreen() {
       <ScrollView contentContainerStyle={{ flexGrow: 1, backgroundColor: '#fff', alignItems: 'center',paddingBottom: 50 }} style={{}} showsVerticalScrollIndicator={false}>
         <HomeHeader />
 
-        {profile? (
-          <Text style={{fontSize: 18, width: '80%', fontFamily: 'Montserrat_500Medium'}}>Hi, <Text style={{fontSize: 18,fontWeight: 600, color: '#3669C9', fontFamily: 'Montserrat_500Medium'}}>{profile? profile.userName : 'user'}</Text></Text>
+        {isHydrating ? (
+          <Text style={{fontSize: 18, width: '80%', fontFamily: 'Montserrat_500Medium'}}>Loading...</Text>
+        ) : profile ? (
+          <Text style={{fontSize: 18, width: '80%', fontFamily: 'Montserrat_500Medium'}}>Hi, <Text style={{fontSize: 18,fontWeight: 600, color: '#3669C9', fontFamily: 'Montserrat_500Medium'}}>{profile.userName}</Text></Text>
         ): (
           <Text style={{fontSize: 18, width: '80%', fontFamily: 'Montserrat_500Medium'}}>Please login or signup</Text>
         )}
@@ -87,15 +89,15 @@ export default function HomeScreen() {
         <ItemsDisplay title='Featured Product' items={products} onEndReached={loadMoreItems} seeAll={seeNewArrival} setSeeAll={setSeeNewArrival} specialSales={false} />
         <HomeSliders images={slider2} />
 
-        {/* <ItemsDisplay title='Best Sellers' items={items} seeAll={seeNewArrival} setSeeAll={setSeeNewArrival} specialSales={false} />
+        <ItemsDisplay title='Featured Product' items={products} onEndReached={loadMoreItems} seeAll={seeNewArrival} setSeeAll={setSeeNewArrival} specialSales={false} />
 
         <HomeSliders images={slider3} />
 
-        <ItemsDisplay title='New arrivals' items={items} seeAll={seeNewArrival} setSeeAll={setSeeNewArrival} specialSales={false} />
+        <ItemsDisplay title='Featured Product' items={products} onEndReached={loadMoreItems} seeAll={seeNewArrival} setSeeAll={setSeeNewArrival} specialSales={false} />
 
-        <ItemsDisplay title='Top Rated' items={topRatedItems} seeAll={seeNewArrival} setSeeAll={setSeeNewArrival} specialSales={false} />
+        <ItemsDisplay title='Featured Product' items={products} onEndReached={loadMoreItems} seeAll={seeNewArrival} setSeeAll={setSeeNewArrival} specialSales={false} />
 
-        <ItemsDisplay title='Top Rated' items={items} seeAll={seeNewArrival} setSeeAll={setSeeNewArrival} specialSales={true} /> */}
+        <ItemsDisplay title='Featured Product' items={products} onEndReached={loadMoreItems} seeAll={seeNewArrival} setSeeAll={setSeeNewArrival} specialSales={false} />
         <LatestNews />
       </ScrollView>
     </SafeAreaView>

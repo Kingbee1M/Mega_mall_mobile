@@ -15,7 +15,7 @@ export type ItemProduct = {
   stock: number;
   media: string[];
   discount?: number;
-  reviews: Review[]; // ← array now, not Record
+  reviews: Review[];
 };
 
 export const fetchItems = async (offset: number, limit: number = 20) => {

@@ -17,6 +17,7 @@ export interface Profile {
 
 interface AuthContextType {
   isLoggedIn: boolean;
+  isHydrating: boolean
   user: User | null;          // Supabase auth user
   profile: Profile | null;    // Your custom users table row
   logout: () => Promise<void>;
@@ -28,6 +29,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [session, setSession] = useState<Session | null>(null);
   const [user, setUser] = useState<User | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
+  const [isHydrating, setIsHydrating] = useState(true);
 
   // 1️⃣ Handle Supabase session and user state
   useEffect(() => {
@@ -54,10 +56,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     if (!session?.user) {
       setProfile(null);
+      setIsHydrating(false);
       return;
     }
 
     const fetchProfile = async () => {
+      setIsHydrating(true);
       const { data, error } = await supabase
         .from("mega-mall-users")
         .select("*")
@@ -75,6 +79,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         console.error("Profile fetch error:", error?.message);
         setProfile(null);
       }
+      setIsHydrating(false);
     };
 
     fetchProfile();
@@ -86,7 +91,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn: !!session, user, profile, logout }}>
+    <AuthContext.Provider value={{ isLoggedIn: !!session, user, profile, isHydrating, logout }}>
       {children}
     </AuthContext.Provider>
   );
